@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org/">
+
+<head th:replace="~{fragments::header}">
+
+</head>
+
+<body id="page-top">
+
+<!-- Page Wrapper -->
+<div id="wrapper">
+
+    <!-- Sidebar -->
+    <ul th:replace="fragments :: sidebar">
+    </ul>
+    <!-- End of Sidebar -->
+
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+
+        <!-- Main Content -->
+        <div id="content">
+
+            <!-- Topbar -->
+            <nav th:replace="fragments :: topbar">
+            </nav>
+            <!-- End of Topbar -->
+
+            <table class="table table-striped" th:if="${size > 0}">
+                <thead>
+                <tr>
+                    <th scope="col">Id</th>
+                    <th scope="col">Name</th>
+                    <!--                    <th scope="col">Category</th>-->
+                    <th scope="col">Activity Times</th>
+                    <th scope="col">Modified By</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="activity : ${activities}">
+                    <th scope="row" th:text="${activity.id}"></th>
+                    <!--                    <td th:text="${product.category.name}"></td>-->
+                    <td th:text="${activity.activity}"></td>
+                    <td th:text="${activity.activityTime}"></td>
+                    <td th:text="${activity.admin.username}"></td>
+                </tr>
+                </tbody>
+            </table>
+            <!--Pagination  -->
+            <nav aria-label="...">
+                <ul class="pagination">
+                    <li th:if="${currentPage != 0}" class="page-item ">
+                        <a th:href="@{'/products/' + ${currentPage - 1}}" class="page-link">Previous</a>
+                    </li>
+                    <li th:each="i : ${#numbers.sequence(1, totalPages)}"
+                        th:classappend="${currentPage == i - 1 ? 'active' : ''}" class="page-item">
+                        <a th:href="@{'/products/' + ${i - 1}}" class="page-link" href="#">
+				     <span th:text="${i}">
+				     </span></a></li>
+                    <li th:if="${currentPage + 1 != totalPages}" class="page-item">
+                        <a th:href="@{'/products/' + ${currentPage + 1}}" class="page-link" href="#">Next</a>
+                    </li>
+                </ul>
+            </nav>
+            <!--Pagination  -->
+        </div>
+        <!-- End of Main Content -->
+
+        <!-- Footer -->
+        <footer th:replace="fragments :: footer">
+        </footer>
+        <!-- End of Footer -->
+
+    </div>
+    <!-- End of Content Wrapper -->
+
+</div>
+<!-- End of Page Wrapper -->
+
+<!-- Scroll to Top Button-->
+<a th:replace="fragments :: scroll">
+</a>
+
+
+<!-- Logout Modal-->
+<div th:replace="fragments :: logoutModal">
+</div>
+
+<div th:replace="fragments :: script"></div>
+<script th:src="@{js/categories.js/}"></script>
+
+</body>
+
+</html>

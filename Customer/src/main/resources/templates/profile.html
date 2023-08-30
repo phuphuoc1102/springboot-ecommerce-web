@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org/">
+<head th:replace="~{fragments :: header}">
+</head>
+<body>
+<div th:replace="~{fragments :: topbar}"></div>
+<div th:replace="~{fragments :: navbar-detail}"></div>
+<div class="container">
+
+    <!-- Breadcrumb -->
+    <nav aria-label="breadcrumb" class="main-breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a th:href="@{/}">Trang chủ</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Chỉnh
+                sửa tài khoản
+            </li>
+        </ol>
+    </nav>
+    <!-- /Breadcrumb -->
+
+    <div class="row gutters-sm">
+        <div class="col-md-4 d-none d-md-block">
+            <div class="card">
+                <div class="card-body">
+                    <nav class="nav flex-column nav-pills nav-gap-y-1">
+                        <a th:href="@{/profile}"
+                           th:attr="class=${page=='personalInfopage'? 'nav-item nav-link has-icon nav-link-faded active' : 'nav-item nav-link has-icon nav-link-faded'}">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                 viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                 stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                 class="feather feather-user mr-2">
+                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                                <circle cx="12" cy="7" r="4"></circle>
+                            </svg>
+                            Thông tin cá nhân
+                        </a> <a th:href="@{/tai-khoan-va-bao-mat}"
+                                th:attr="class=${page=='accountpage'? 'nav-item nav-link has-icon nav-link-faded active' : 'nav-item nav-link has-icon nav-link-faded'}">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                             viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                             stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                             class="feather feather-settings mr-2">
+                            <circle cx="12" cy="12" r="3"></circle>
+                            <path
+                                    d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z">
+
+                            </path>
+                        </svg>
+                        Tài
+                        khoản và bảo mât
+                    </a> <a th:href="@{/don-hang/all}"
+                            th:attr="class=${page=='orderpage'? 'nav-item nav-link has-icon nav-link-faded active' : 'nav-item nav-link has-icon nav-link-faded'}">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                             viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                             stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                             class="feather feather-credit-card mr-2">
+                            <rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect>
+                            <line x1="1" y1="10" x2="23" y2="10"></line>
+                        </svg>
+                        Đơn hàng của tôi
+                    </a>
+                    </nav>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-body tab-content">
+                    <div class="tab-pane active" id="profile" th:if="${page} == 'personalInfopage'">
+                        <h4>Thông tin cá nhân</h4>
+                        <hr>
+                        <div th:if="${warning}"><p class="alert-danger" th:text="${warning}"></p></div>
+                        <form th:action="@{/cap-nhat-thong-tin-khach-hang/{username}(username = ${personalInfo.username})}"
+                              method="post" th:object="${personalInfo}" enctype="multipart/form-data">
+                            <div class="form-group">
+                                <label for="firstName">Họ</label>
+                                <input id="firstName" type="text" class="form-control" th:field="*{firstName}"
+                                       required="required"></input>
+
+                            </div>
+                            <div class="form-group">
+                                <label for="lastName">Tên</label>
+                                <input id="lastName" type="text" class="form-control" th:field="*{lastName}"
+                                       required="required"></input>
+                                <input id="password" type="hidden" class="form-control" th:field="*{password}"
+                                       th:value="${personalInfo.password}">
+                                <input id="id" type="hidden" class="form-control" th:field="*{id}"
+                                       th:value="${personalInfo.id}">
+
+
+                            </div>
+                            <div class="form-group">
+                                <label for="address">Địa chỉ</label>
+                                <input id="address" type="text" class="form-control" th:field="*{address}"
+                                       required="required"></input>
+
+                            </div>
+                            <div class="form-group">
+                                <label for="phoneNumber">Số điện thoại</label>
+                                <input id="phoneNumber" type="text" class="form-control" th:field="*{phoneNumber}"
+                                       required="required"></input>
+
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="imageUpdate">CUSTOMER IMAGE</label>
+                                <div class="col-md-4" th:if="${personalInfo.image}">
+
+                                    <img class="my-product-image" style="height: 40px; width: 40px;" alt=""
+                                         th:src="'data:image/jpeg;base64,' + ${personalInfo.image}">
+                                    <input id="imageUpdate" name="imageCustomer" class="input-file" type="file">
+                                </div>
+                                <div class="col-md-4" th:if="${personalInfo.image == null}">
+                                    <p class="alert-danger" th:text="'Người dùng chưa cập nhật ảnh đại diện'"></p>
+                                    <input id="image" name="imageProduct" class="input-file" type="file">
+                                </div>
+                            </div>
+                            <button class="btn btn-primary form-control" type="submit"
+                                    value="Lưu thay đổi" name="submit" id="submit">Lưu thay đổi
+                            </button>
+                        </form>
+                    </div>
+                    <div class="tab-pane active" id="account" th:if="${page == 'accountpage'}">
+                        <h6>Tài khoản và bảo mật</h6>
+                        <hr>
+                        <form th:action="@{/doi-mat-khau}" method="post" th:object="${personalInfo}">
+                            <div class="form-group">
+                                <label for="username">Email</label> <input type="text"
+                                                                           class="form-control" id="username"
+                                                                           th:value="${personalInfo.username}"
+                                                                           th:field="*{username}" readonly>
+                            </div>
+                            <hr>
+                            <div th:if="${changePasswordSuccess}"><p class="alert-success"
+                                                                     th:text="${changePasswordSuccess}"></p></div>
+                            <div class="form-group">
+                                <label class="d-block">Thay đổi mật khẩu</label> <span
+                                    class="red"></span>
+                                <input id="oldPassword" placeholder="Nhập mật khẩu cũ" class="form-control"
+                                       type="password" name="oldPassword" required="required"
+                                       autocomplete="new-password">
+                                <div th:if="${passwordError}"><p class="alert-danger" th:text="${passwordError}"></p>
+                                </div>
+                                <div th:if="${statusPassword}"><p class="alert-danger" th:text="${statusPassword}"></p>
+                                </div>
+                                <input id="newPassword" placeholder="Nhập mật khẩu mới" class="form-control"
+                                       type="password" name="newPassword" required="required">
+
+                                <input id="confirmPassword" placeholder="Xác nhận mật khẩu mới" class="form-control"
+                                       type="password" required="required"> <span id="msg" class="red"></span>
+                            </div>
+                            <input class="btn btn-primary form-control" type="submit"
+                                   value="Lưu mật khẩu" name="submitPassword" id="submitPassword"/>
+                            <hr>
+
+                        </form>
+                    </div>
+                    <div class="tab-pane active" id="billing" th:if="${page} =='orderpage'">
+                        <h6>Quản lý đơn hàng</h6>
+                        <nav class="order-status">
+                            <ul>
+                                <li th:attr="class=${status=='all'? 'active' : ''}"><a
+                                        th:href="@{/don-hang/all}"
+                                        th:attr="class=${status=='all'? 'active' : ''}">Tất cả</a></li>
+                                <li th:attr="class=${status=='pending'? 'active' : ''}"><a
+                                        th:href="@{/don-hang/pending}"
+                                        th:attr="class=${status=='pending'? 'active' : ''}">Chờ xác nhận</a></li>
+                                <li th:attr="class=${status=='to_ship'? 'active' : ''}"><a
+                                        th:href="@{/don-hang/to_ship}"
+                                        th:attr="class=${status=='to_ship'? 'active' : ''}">Chờ lấy hàng</a></li>
+                                <li th:attr="class=${status=='to_receive'? 'active' : ''}"><a
+                                        th:href="@{/don-hang/to_receive}"
+                                        th:attr="class=${status=='to_receive'? 'active' : ''}">Đang giao</a></li>
+                                <li th:attr="class=${status=='completed'? 'active' : ''}"><a
+                                        th:href="@{/don-hang/completed}"
+                                        th:attr="class=${status=='completed'? 'active' : ''}">Đã giao</a></li>
+                                <li th:attr="class=${status=='canceled'? 'active' : ''}"><a
+                                        th:href="@{/don-hang/canceled}"
+                                        th:attr="class=${status=='canceled'? 'active' : ''}">Đã hủy</a></li>
+                            </ul>
+                        </nav>
+                        <hr>
+                        <form>
+                            <div class="form-group">
+                                <div th:if="${dataOrder == null}">
+                                    <div class="hKbGrP">Chưa có đơn hàng</div>
+                                </div>
+                                <div th:if="${Order != null && status !='all'}" th:each="order : ${Order}">
+                                    <div class="card mb-4">
+                                        <div class="card-body">
+                                            <div class="mb-3 d-flex justify-content-between">
+                                                <div>
+                                                    <span class="me-3">Trạng thái</span>
+                                                    <span th:if="${order.orderStatus.name() =='PENDING'}"
+                                                          th:text="'Chờ xác nhận'"
+                                                          class="badge rounded-pill bg-info"></span>
+                                                    <span th:if="${order.orderStatus.name() =='TO_SHIP'}"
+                                                          th:text="'Chờ lấy hàng'"
+                                                          class="badge rounded-pill bg-info"></span>
+                                                    <span th:if="${order.orderStatus.name() =='TO_RECEIVE'}"
+                                                          th:text="'Đang giao hàng'"
+                                                          class="badge rounded-pill bg-info"></span>
+                                                    <span th:if="${order.orderStatus.name() =='COMPLETED'}"
+                                                          th:text="'Đã giao hàng'"
+                                                          class="badge rounded-pill bg-info"></span>
+                                                    <span th:if="${order.orderStatus.name() =='CANCELED'}"
+                                                          th:text="'Đã hủy'"
+                                                          class="badge rounded-pill bg-info"></span>
+                                                </div>
+                                            </div>
+                                            <table class="table table-borderless">
+                                                <tbody th:each="item : ${order.orderDetailList}">
+                                                <!--                                                        <c:forEach var="item" items="${order.orderDetailList}">-->
+                                                <tr>
+                                                    <td>
+                                                        <div class="d-flex mb-2">
+                                                            <div class="flex-shrink-0">
+                                                                <img th:src="'data:image/jpeg;base64,' + ${item.product.image}"
+                                                                     alt="" width="35"
+                                                                     class="img-fluid">
+                                                            </div>
+                                                            <div class="flex-lg-grow-1 ms-3">
+                                                                <h6 class="small mb-0">
+                                                                    <a href="#" class="text-reset"
+                                                                       th:text="${item.product.name}">${item.product_name}</a>
+                                                                </h6>
+                                                                <span class="small" th:text="'Số lượng: '+${item.quantity}">
+																						${item.quantity}</span>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td></td>
+                                                    <td class="text-end" th:text="${item.product.salePrice}+'đ'">
+                                                        ${item.price}đ
+                                                    </td>
+                                                </tr>
+                                                </tbody>
+                                                <tfoot>
+
+                                                <tr class="fw-bold">
+                                                    <td colspan="2">Thành tiền</td>
+                                                    <td class="text-end" th:text="${order.totalPrice} +'đ'">
+                                                        ${order.totalPrice}đ
+                                                    </td>
+                                                </tr>
+                                                </tfoot>
+                                            </table>
+
+
+                                        </div>
+                                        <a
+                                                th:href="@{/chi-tiet-don-hang/{id}(id=${Order.id})}"><span
+                                                class="btn-view-order">Xem chi tiết</span></a>
+                                    </div>
+                                </div>
+                                <div th:if="${Order != null && status =='all'}" th:each="order : ${Order}">
+                                    <div class="card mb-4">
+                                        <div class="card-body">
+                                            <div class="mb-3 d-flex justify-content-between">
+                                                <div>
+                                                    <span class="me-3">Trạng thái</span>
+                                                    <span th:if="${order.orderStatus.name() =='PENDING'}"
+                                                          th:text="'Chờ xác nhận'"
+                                                          class="badge rounded-pill bg-info"></span>
+                                                    <span th:if="${order.orderStatus.name() =='TO_SHIP'}"
+                                                          th:text="'Chờ lấy hàng'"
+                                                          class="badge rounded-pill bg-info"></span>
+                                                    <span th:if="${order.orderStatus.name() =='TO_RECEIVE'}"
+                                                          th:text="'Đang giao hàng'"
+                                                          class="badge rounded-pill bg-info"></span>
+                                                    <span th:if="${order.orderStatus.name() =='COMPLETED'}"
+                                                          th:text="'Đã giao hàng'"
+                                                          class="badge rounded-pill bg-info"></span>
+                                                    <span th:if="${order.orderStatus.name() =='CANCELED'}"
+                                                          th:text="'Đã hủy'"
+                                                          class="badge rounded-pill bg-info"></span>
+                                                </div>
+                                            </div>
+                                            <table class="table table-borderless">
+                                                <tbody th:each="item : ${order.orderDetailList}">
+                                                <!--                                                        <c:forEach var="item" items="${order.orderDetailList}">-->
+                                                <tr>
+                                                    <td>
+                                                        <div class="d-flex mb-2">
+                                                            <div class="flex-shrink-0">
+                                                                <img th:src="'data:image/jpeg;base64,' + ${item.product.image}"
+                                                                     alt="" width="35"
+                                                                     class="img-fluid">
+                                                            </div>
+                                                            <div class="flex-lg-grow-1 ms-3">
+                                                                <h6 class="small mb-0">
+                                                                    <a href="#" class="text-reset"
+                                                                       th:text="${item.product.name}">${item.product_name}</a>
+                                                                </h6>
+                                                                <span class="small" th:text="'Số lượng: '+${item.quantity}">
+																						${item.quantity}</span>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td></td>
+                                                    <td class="text-end" th:text="${item.product.salePrice}+'đ'">
+                                                        ${item.price}đ
+                                                    </td>
+                                                </tr>
+                                                </tbody>
+                                                <tfoot>
+
+                                                <tr class="fw-bold">
+                                                    <td colspan="2">Thành tiền</td>
+                                                    <td class="text-end" th:text="${order.totalPrice} +'đ'">
+                                                        ${order.totalPrice}đ
+                                                    </td>
+                                                </tr>
+                                                </tfoot>
+                                            </table>
+
+
+                                        </div>
+
+
+                                        <a
+                                                href='<c:url value="/chi-tiet-don-hang/${order.orderId}"/>'><span
+                                                class="btn-view-order">Xem chi tiết</span></a>
+                                    </div>
+                                </div>
+
+                                </div>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

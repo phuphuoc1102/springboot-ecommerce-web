@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org/">
+<head th:replace="~{fragments :: header}">
+</head>
+<body>
+<div th:replace="~{fragments :: topbar}"></div>
+<div th:replace="~{fragments :: navbar-detail}"></div>
+
+<div class="container1" th:if="${session.orderId != 0}">
+    <h1 class="fa fa-check-circle"> Đặt hàng thành công! </h1>
+</div>
+<div class="container1" th:if="${session.orderId == 0}">
+    <h1 class="fa fa-check-circle"> Đơn hàng đã được đặt trước đó! </h1>
+</div>
+<div class="contain">
+    <a th:href="@{/}">
+        <button class="btn btn-block btn-primary1 my-3 py-3">Tiếp tục mua sắm</button>
+    </a>
+    <div th:if="${session.orderId != 0}">
+        <a th:href="@{/chi-tiet-don-hang/{id}(id =${session.orderId})}">
+            <button class="btn btn-block btn-primary2 my-3 py-3">Xem chi tiết đơn hàng</button>
+        </a>
+    </div>
+</div>
+<div th:replace="~{fragments :: footer}"></div>
+</body>
+</html>
