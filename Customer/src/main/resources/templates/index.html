@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org/">
+
+<head th:replace="fragments :: header">
+</head>
+
+<body>
+<!-- Topbar Start -->
+<div th:replace="fragments :: topbar"></div>
+<!-- Topbar End -->
+
+
+<!-- Navbar Start -->
+<div th:replace="fragments :: navbar"></div>
+<!-- Navbar End -->
+
+
+<!-- Featured Start -->
+<div class="container-fluid pt-5">
+    <div class="row px-xl-5 pb-3">
+        <div class="col-lg-3 col-md-6 col-sm-12 pb-1">
+            <div class="d-flex align-items-center border mb-4" style="padding: 30px;">
+                <h1 class="fa fa-check text-primary m-0 mr-3"></h1>
+                <h5 class="font-weight-semi-bold m-0">Quality Product</h5>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-6 col-sm-12 pb-1">
+            <div class="d-flex align-items-center border mb-4" style="padding: 30px;">
+                <h1 class="fa fa-shipping-fast text-primary m-0 mr-2"></h1>
+                <h5 class="font-weight-semi-bold m-0">Free Shipping</h5>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-6 col-sm-12 pb-1">
+            <div class="d-flex align-items-center border mb-4" style="padding: 30px;">
+                <h1 class="fas fa-exchange-alt text-primary m-0 mr-3"></h1>
+                <h5 class="font-weight-semi-bold m-0">14-Day Return</h5>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-6 col-sm-12 pb-1">
+            <div class="d-flex align-items-center border mb-4" style="padding: 30px;">
+                <h1 class="fa fa-phone-volume text-primary m-0 mr-3"></h1>
+                <h5 class="font-weight-semi-bold m-0">24/7 Support</h5>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Featured End -->
+<!-- Page Header Cat Start -->
+<div th:replace="~{fragments :: page-header-start-cat}">
+</div>
+<!-- Page Header Cat End -->
+<!-- Categories Start -->
+<div class="container-fluid pt-5">
+    <div class="text-center mb-4">
+        <h2 class="section-title px-5" >
+            <span class="px-2">Danh mục nổi bật</span>
+        </h2>
+    </div>
+
+    <div class="row px-xl-5 pb-3">
+
+        <div class="col-lg-4 col-md-6 pb-1" th:each="featured :${featuredCategory}">
+
+            <div class="cat-item d-flex flex-column border mb-4"
+                 style="padding: 30px;">
+                <a th:href="@{'the-loai/'+ ${featured.slug}}"
+                   class="cat-img position-relative overflow-hidden mb-3">
+                    <img class="img-fetured" style="height: 40px; width: 40px;"
+                         th:src="'data:image/jpeg;base64,' + ${featured.image}" alt="">
+                </a>
+                <a th:href="@{'/the-loai/'+${featured.slug}(page=0)}">
+                    <h5 class="font-weight-semi-bold m-0" th:text="${featured.name}"></h5>
+                </a>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+<!-- Categories End -->
+
+
+
+<!-- Products Start -->
+<div class="container-fluid pt-5">
+    <img  border="0" style="margin-left: 100px;  margin-bottom: 20px;" src="https://bizweb.dktcdn.net/100/448/728/themes/852257/assets/section_hot_banner.png?1686199049736" width="1290" height="113">
+    <div class="text-center mb-4">
+        <h2 class="section-title px-5"><span class="px-2">Trending Products</span></h2>
+    </div>
+    <form method="post">
+    <div class="row px-xl-5 pb-3">
+        <div class="col-lg-3 col-md-6 col-sm-12 pb-1" th:each="product : ${trendingProducts}">
+            <div class="card product-item border-0 mb-4">
+                <div class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
+                    <img class="my-product-image" style="height: 100%; width: 100%;" alt=""
+                         th:src="'data:image/jpeg;base64,' + ${product.image}">
+                </div>
+                <div class="card-body border-left border-right text-center p-0 pt-4 pb-3">
+                    <h6 class="text-truncate mb-3" th:text="${product.name}"></h6>
+                    <div class="d-flex justify-content-center">
+                        <h6 th:text="${product.salePrice} + 'đ'"></h6>
+                    </div>
+                </div>
+                <div class="card-footer d-flex justify-content-between bg-light border">
+                    <a th:href="@{/chi-tiet-san-pham(id= ${product.id})}" class="btn btn-sm text-dark p-0"><i
+                            class="fas fa-eye text-primary mr-1"></i>View Detail</a>
+                    <a th:href="@{/add-to-cart/{product_id}(product_id = ${product.id})} " class="btn btn-sm text-dark p-0"><i class="fas fa-shopping-cart text-primary mr-1"></i>Add
+                        To Cart</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    </form>
+</div>
+<!-- Products End -->
+
+
+<!-- Vendor Start -->
+<div class="container-fluid py-5">
+    <div class="row px-xl-5">
+        <div class="col">
+            <div class="owl-carousel vendor-carousel">
+                <div class="vendor-item border p-4">
+                    <img src="img/vendor-1.jpg" alt="">
+                </div>
+                <div class="vendor-item border p-4">
+                    <img src="img/vendor-2.jpg" alt="">
+                </div>
+                <div class="vendor-item border p-4">
+                    <img src="img/vendor-3.jpg" alt="">
+                </div>
+                <div class="vendor-item border p-4">
+                    <img src="img/vendor-4.jpg" alt="">
+                </div>
+                <div class="vendor-item border p-4">
+                    <img src="img/vendor-5.jpg" alt="">
+                </div>
+                <div class="vendor-item border p-4">
+                    <img src="img/vendor-6.jpg" alt="">
+                </div>
+                <div class="vendor-item border p-4">
+                    <img src="img/vendor-7.jpg" alt="">
+                </div>
+                <div class="vendor-item border p-4">
+                    <img src="img/vendor-8.jpg" alt="">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Vendor End -->
+
+
+<!-- Footer Start -->
+<div th:replace="fragments :: footer"></div>
+<!-- Footer End -->
+
+
+<!-- Back to Top -->
+<div th:replace="fragments :: backtotop"></div>
+
+
+<!-- JavaScript Libraries -->
+<div th:replace="fragments :: script"></div>
+
+<!-- Contact Javascript File -->
+<div th:replace="fragments :: contact-script"></div>
+
+<!-- Template Javascript -->
+<div th:replace="fragments :: template-script"></div>
+</body>
+
+</html>

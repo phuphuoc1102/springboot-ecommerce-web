@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org/">
+<head th:fragment="header">
+    <meta charset="utf-8">
+    <title>Petshop</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="Free HTML Templates" name="keywords">
+    <meta content="Free HTML Templates" name="description">
+
+    <!-- Favicon -->
+    <link rel="icon"
+          href="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQrDXAJgAIPPrj4g-8QgR7Yyg27IjKc4RN64g&usqp=CAU"
+          type="image/x-icon">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap"
+          rel="stylesheet">
+    <link rel="icon"
+          href="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQrDXAJgAIPPrj4g-8QgR7Yyg27IjKc4RN64g&usqp=CAU"
+          type="image/x-icon">
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link th:href="@{/lib/owlcarousel/assets/owl.carousel.min.css}" rel="stylesheet">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link th:href="@{/css/style.css}" rel="stylesheet">
+<!--    <link th:href="@{//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css}" rel="stylesheet" id="bootstrap-css">-->
+    <script th:src="@{//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js}"></script>
+    <script th:src="@{//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js}"></script>
+    <style>
+        .red {
+            color: red;
+        }
+
+        .form-check-input {
+            position: absolute;
+            margin-top: 0.3rem;
+            margin-left: 0.2rem;
+        }
+
+        body {
+            margin-top: 20px;
+            color: #1a202c;
+            text-align: left;
+        }
+
+        .main-body {
+            padding: 15px;
+        }
+
+        .nav-link {
+            color: #4a5568;
+        }
+
+        h6 {
+            padding: 6px;
+        }
+
+        .card {
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, .1), 0 1px 2px 0 rgba(0, 0, 0, .06);
+        }
+
+        .card {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
+            word-wrap: break-word;
+            background-color: #fff;
+            background-clip: border-box;
+            border: 0 solid rgba(0, 0, 0, .125);
+            border-radius: .25rem;
+        }
+
+        .card-body {
+            flex: 1 1 auto;
+            min-height: 1px;
+            padding: 1rem;
+        }
+
+        .gutters-sm {
+            margin-right: -8px;
+            margin-left: -8px;
+        }
+
+        .gutters-sm > .col, .gutters-sm > [class*=col-] {
+            padding-right: 8px;
+            padding-left: 8px;
+        }
+
+        .mb-3, .my-3 {
+            margin-bottom: 1rem !important;
+        }
+
+        .bg-gray-300 {
+            background-color: #e2e8f0;
+        }
+
+        .h-100 {
+            height: 100% !important;
+        }
+
+        .shadow-none {
+            box-shadow: none !important;
+        }
+
+        input {
+            margin: 15px;
+            font-family: inherit;
+            font-size: inherit;
+            line-height: inherit;
+        }
+
+        .red {
+            color: red
+        }
+
+        nav.order-status {
+            padding: 10px;
+        }
+
+        nav.order-status ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+
+        nav.order-status li {
+            margin-right: 10px;
+        }
+
+        nav.order-status a {
+            display: block;
+            color: #333;
+            padding: 15px;
+            text-decoration: none;
+        }
+
+        nav.order-status a:hover {
+            background-color: #ddd;
+        }
+
+        nav.order-status a.active {
+            color: #E51F28;
+        }
+
+        nav.order-status li.active {
+            border-bottom: 2px solid #E51F28;
+            border-bottom-color: #E51F28;
+        }
+
+        .btn-view-order {
+            background-color: #E51F28;
+            border: none;
+            margin-bottom: 10px;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            float: right;
+            margin-top: 10px;
+        }
+
+        .btn-view-order:hover {
+            background-color: #c94b50
+        }
+
+
+        .hKbGrP {
+            margin: 20px 0 0;
+            font-size: 18px;
+            line-height: 1.4;
+            color: rgba(0, 0, 0, .8);
+        }
+
+        .form-group .edit-link {
+            display: inline-block;
+            float: right;
+            margin-left: 10px; /* tùy chỉnh khoảng cách giữa input và a */
+        }
+
+        .card {
+            box-shadow: 0 20px 27px 0 rgb(0 0 0 / 5%);
+        }
+
+        .card {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
+            word-wrap: break-word;
+            background-color: #fff;
+            background-clip: border-box;
+            border: 0 solid rgba(0, 0, 0, .125);
+            border-radius: 1rem;
+        }
+
+        .text-reset {
+            --bs-text-opacity: 1;
+            color: inherit !important;
+        }
+
+        a {
+            color: #5465ff;
+            text-decoration: none;
+        }
+
+        .container1 {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .contain {
+            padding: 50px;
+        }
+
+        .btn-primary1 {
+            color: #212529;
+            background-color: #ffc72c;
+            border-color: #ffc72c;
+            border-radius: 10px;
+            float: left;
+            width: 250px
+        }
+
+        .btn-primary2 {
+            color: #212529;
+            background-color: #ffc72c;
+            border-color: #ffc72c;
+            border-radius: 10px;
+            float: right;
+            width: 250px
+
+        }
+
+        .btn-primary1:hover {
+            color: #fff;
+            background-color: #E51F28;
+            border-color: #E51F28;
+            float: left;
+            width: 250px
+        }
+
+        .btn-primary2:hover {
+            color: #fff;
+            background-color: #E51F28;
+            border-color: #E51F28;
+            float: right;
+            width: 250px
+        }
+        /*css for review*/
+        .rating {
+            float: left;
+        }
+
+        /* :not(:checked) is a filter, so that browsers that don’t support :checked don’t
+              follow these rules. Every browser that supports :checked also supports :not(), so
+              it doesn’t make the test unnecessarily selective */
+        .rating:not(:checked)>input {
+            position: absolute;
+            top: -9999px;
+            clip: rect(0, 0, 0, 0);
+        }
+
+        .rating:not(:checked)>label {
+            float: right;
+            width: 1em;
+            /* padding:0 .1em; */
+            overflow: hidden;
+            white-space: nowrap;
+            cursor: pointer;
+            font-size: 300%;
+            /* line-height:1.2; */
+            color: #ddd;
+        }
+
+        .rating:not(:checked)>label:before {
+            content: '★ ';
+        }
+
+        .rating>input:checked ~ label {
+            /* color: dodgerblue; */
+            color: #E51F28 !important;
+        }
+
+        .rating:not(:checked)>label:hover, .rating:not(:checked)>label:hover ~
+        label {
+            /* color: dodgerblue; */
+            color: #E51F28 !important;
+        }
+
+        .rating>input:checked+label:hover, .rating>input:checked+label:hover ~
+        label, .rating>input:checked ~ label:hover, .rating>input:checked ~
+        label:hover ~ label, .rating>label:hover ~ input:checked ~ label {
+            /* color: dodgerblue; */
+            color: #E51F28 !important;
+        }
+
+        .rating>label:active {
+            position: relative;
+            top: 2px;
+            left: 2px;
+        }
+    </style>
+</head>
+<body>
+<!-- Topbar Start -->
+<div class="container-fluid" th:fragment="topbar">
+    <div class="row align-items-center py-3 px-xl-5">
+        <div class="col-lg-3 d-none d-lg-block">
+            <a href="" class="text-decoration-none">
+                <h1 class="m-0 display-5 font-weight-semi-bold"><span
+                        class="text-primary font-weight-bold border px-3 mr-1">E</span>Shopper</h1>
+            </a>
+        </div>
+        <div class="col-lg-6 col-6 text-left">
+            <form action="">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Search for products">
+                    <div class="input-group-append">
+                            <span class="input-group-text bg-transparent text-primary">
+                                <i class="fa fa-search"></i>
+                            </span>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="col-lg-3 col-6 text-right">
+            <a href="" class="btn border">
+                <i class="fas fa-heart text-primary"></i>
+                <span class="badge">0</span>
+            </a>
+            <a th:href="@{/cart}" class="btn border">
+                <i class="fas fa-shopping-cart text-primary"></i>
+                <span class="badge" th:if="${shoppingCart}" th:text="${shoppingCart.totalItems}"></span>
+                <span class="badge" th:if="${shoppingCart == null}">0</span>
+            </a>
+        </div>
+    </div>
+</div>
+<!-- Topbar End -->
+<!-- Page Header Start -->
+<div class="container-fluid bg-secondary mb-5" th:fragment="page-header-start-dog">
+    <div class="d-flex flex-column align-items-center justify-content-center"
+         style="background-image: url('https://www.petcity.vn/media/banner/banner_839ab468.png');
+              background-repeat: no-repeat; min-height: 300px; background-size: 100%">
+    </div>
+</div>
+<!-- Page Header End -->
+<!-- Page Header Start -->
+<div class="container-fluid bg-secondary mb-5" th:fragment="page-header-start-cat">
+    <div class="d-flex flex-column align-items-center justify-content-center"
+         style="background-image: url('https://www.petcity.vn/media/banner/05_Mayb79bb0ccfcdb92f81a8b801322cf0abd.jpg');
+              background-repeat: no-repeat; min-height: 130px; background-size: 100%; margin-left: 100px; margin-right: 100px">
+    </div>
+</div>
+<!-- Page Header End -->
+<!-- Navbar Start -->
+<div class="container-fluid mb-5" th:fragment="navbar">
+    <div class="row border-top px-xl-5">
+        <div class="col-lg-3 d-none d-lg-block" style="margin-top:20px;">
+            <a class="btn shadow-none d-flex align-items-center justify-content-between bg-primary text-white w-100"
+               data-toggle="collapse" th:href="@{#navbar-vertical}"
+               style="height: 65px; margin-top: -1px; padding: 0 30px;">
+                <h6 class="m-0">Danh mục</h6>
+                <i class="fa fa-angle-down text-dark"></i>
+            </a>
+            <nav class="collapse hide navbar navbar-vertical navbar-light align-items-start p-0 border border-top-0 border-bottom-0"
+                 id="navbar-vertical">
+                <div class="navbar-nav w-100 overflow-hidden" style="height: 410px">
+                    <div class="navbar-nav w-100 overflow-hidden" style="height: 410px">
+                        <a th:href="@{'/the-loai/'+${category.slug}(page=0)}"
+                           th:each="category : ${categories}" th:text="${category.name}" class="nav-item nav-link"><i
+                                class="fa fa-angle-down float-right mt-1"></i></a>
+                    </div>
+                    </c:if>
+                </div>
+            </nav>
+        </div>
+        <div class="col-lg-9">
+            <nav class="navbar navbar-expand-lg bg-light navbar-light py-3 py-lg-0 px-0">
+                <a href="" class="text-decoration-none d-block d-lg-none">
+                    <h1 class="m-0 display-5 font-weight-semi-bold"><span
+                            class="text-primary font-weight-bold border px-3 mr-1">E</span>Shopper</h1>
+                </a>
+                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
+                    <div class="navbar-nav mr-auto py-0">
+                        <a th:href="@{/}" class="nav-item nav-link active">Home</a>
+                        <a th:each="pet : ${pets}" th:text="'Shop ' + ${pet.name}" th:href="@{'/'+${pet.slug}(page=0)}"
+                           class="nav-item nav-link">Shop Detail</a>
+                        <div class="nav-item dropdown">
+                            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Pages</a>
+                            <div class="dropdown-menu rounded-0 m-0">
+                                <a href="cart.html" class="dropdown-item">Shopping Cart</a>
+                                <a href="checkout.html" class="dropdown-item">Checkout</a>
+                            </div>
+                        </div>
+                        <a href="contact.html" class="nav-item nav-link">Contact</a>
+                    </div>
+                    <div class="navbar-nav ml-auto py-0" style="margin-right: 0px;" th:if="${session.username} == null">
+
+                        <a th:href="@{/dang-nhap}" class="nav-item nav-link">Đăng nhập</a>
+                        <a th:href="@{/dang-ky}" class="nav-item nav-link">Đăng ký</a>
+                    </div>
+                    <div class="navbar-nav ml-auto py-0" style="margin-right: 0px;" th:if="${session.username}">
+                        <a th:href="@{/profile}" class="nav-item nav-link" th:text="${session.username}"></a>
+                        <a th:href="@{/logout}" class="nav-item nav-link">Đăng xuất</a>
+                    </div>
+
+                </div>
+            </nav>
+            <div id="header-carousel" class="carousel slide"
+                 data-ride="carousel">
+                <div class="carousel-inner">
+                    <div class="carousel-item active" style="height: 410px;">
+                        <img class="img-fluid" src="https://i.imgur.com/BC7Q4Dw.jpg"
+                             alt="Image">
+                        <div
+                                class="carousel-caption d-flex flex-column align-items-center justify-content-center">
+                            <div class="p-3" style="max-width: 700px;">
+                                <h4 class="text-light text-uppercase font-weight-medium mb-3"></h4>
+                                <h3 class="display-4 text-white font-weight-semi-bold mb-4"></h3>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item" style="height: 410px;">
+                        <img class="img-fluid" src="https://i.imgur.com/H8rvxj6.jpg"
+                             alt="Image">
+                        <div
+                                class="carousel-caption d-flex flex-column align-items-center justify-content-center">
+                            <div class="p-3" style="max-width: 700px;">
+                                <h4 class="text-light text-uppercase font-weight-medium mb-3"></h4>
+                                <h3 class="display-4 text-white font-weight-semi-bold mb-4"></h3>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <a class="carousel-control-prev" href="#header-carousel"
+                   data-slide="prev">
+                    <div class="btn btn-dark" style="width: 45px; height: 45px;">
+                        <span class="carousel-control-prev-icon mb-n2"></span>
+                    </div>
+                </a> <a class="carousel-control-next" href="#header-carousel" data-slide="next">
+                <div class="btn btn-dark" style="width: 45px; height: 45px;">
+                    <span class="carousel-control-next-icon mb-n2"></span>
+                </div>
+            </a>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Navbar End -->
+<!-- Navbar product detail Start -->
+<div class="container-fluid" th:fragment="navbar-detail">
+    <div class="row border-top px-xl-5">
+        <div style="margin-top:20px;" class="col-lg-3 d-none d-lg-block">
+            <a class="btn shadow-none d-flex align-items-center justify-content-between bg-primary text-white w-100"
+               data-toggle="collapse" href="#navbar-vertical1" style="height: 65px; margin-top: -1px; padding: 0 30px;">
+                <h6 class="m-0 ">Danh mục</h6>
+                <i class="fa fa-angle-down text-dark"></i>
+            </a>
+            <nav class="collapse hide navbar navbar-vertical navbar-light align-items-start p-0 border border-top-0 border-bottom-0"
+                 id="navbar-vertical1">
+                <div class="navbar-nav w-100 overflow-hidden" style="height: 410px">
+                    <a th:href="@{'/the-loai/'+${category.slug}(page=0)}" th:each="category : ${categories}"
+                       th:text="${category.name}" class="nav-item nav-link"></a>
+                </div>
+            </nav>
+        </div>
+        <div class="col-lg-9">
+            <nav class="navbar navbar-expand-lg bg-light navbar-light py-3 py-lg-0 px-0">
+                <a href="" class="text-decoration-none d-block d-lg-none">
+                    <h1 class="m-0 display-5 font-weight-semi-bold"><span
+                            class="text-primary font-weight-bold border px-3 mr-1">E</span>Shopper</h1>
+                </a>
+                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse1">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse1">
+                    <div class="navbar-nav mr-auto py-0">
+                        <a th:href="@{/}" class="nav-item nav-link">Home</a>
+                        <a th:each="pet : ${pets}" th:text="'Shop ' + ${pet.name}" th:href="@{'/'+${pet.slug}(page=0)}"
+                           class="nav-item nav-link">Shop Detail</a>
+                        <div class="nav-item dropdown">
+                            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Pages</a>
+                            <div class="dropdown-menu rounded-0 m-0">
+                                <a href="cart.html" class="dropdown-item">Shopping Cart</a>
+                                <a href="checkout.html" class="dropdown-item">Checkout</a>
+                            </div>
+                        </div>
+                        <a href="contact.html" class="nav-item nav-link">Contact</a>
+                    </div>
+                    <div class="navbar-nav ml-auto py-0" style="margin-right: 0px;" th:if="${session.username} == null">
+
+                        <a th:href="@{/dang-nhap}" class="nav-item nav-link">Đăng nhập</a>
+                        <a th:href="@{/dang-ky}" class="nav-item nav-link">Đăng ký</a>
+                    </div>
+                                        <div class="navbar-nav ml-auto py-0" style="margin-right: 0px;" th:if="${session.username}">
+                                            <a th:href="@{/profile}" class="nav-item nav-link" th:text="${session.username}"></a>
+                                            <a th:href="@{/logout}" class="nav-item nav-link">Đăng xuất</a>
+                                        </div>
+                </div>
+            </nav>
+        </div>
+    </div>
+</div>
+<!-- Navbar product detail End -->
+<!-- Subscribe Start -->
+<div class="container-fluid bg-secondary my-5" th:fragment="subcribe">
+    <div class="row justify-content-md-center py-5 px-xl-5">
+        <div class="col-md-6 col-12 py-5">
+            <div class="text-center mb-2 pb-2">
+                <h2 class="section-title px-5 mb-3"><span class="bg-secondary px-2">Stay Updated</span></h2>
+                <p>Amet lorem at rebum amet dolores. Elitr lorem dolor sed amet diam labore at justo ipsum eirmod duo
+                    labore labore.</p>
+            </div>
+            <form action="">
+                <div class="input-group">
+                    <input type="text" class="form-control border-white p-4" placeholder="Email Goes Here">
+                    <div class="input-group-append">
+                        <button class="btn btn-primary px-4 ">Subscribe</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- Subscribe End -->
+<!-- Footer Start -->
+<!-- Footer Start -->
+<div class="container-fluid bg-secondary text-dark mt-5 pt-5" th:fragment="footer">
+    <div class="row px-xl-5 pt-5">
+        <div class="col-lg-4 col-md-12 mb-5 pr-3 pr-xl-5">
+            <a href="" class="text-decoration-none">
+                <h1 class="mb-4 display-5 font-weight-semi-bold"><span
+                        class="text-primary font-weight-bold border border-white px-3 mr-1">PETSHOP</span></h1>
+            </a>
+            <p></p>
+            <p class="mb-2"><i class="fa fa-map-marker-alt text-primary mr-3"></i>57 Nguyễn Lương Bằng, Hòa Khánh Bắc,
+                Liên Chiểu, Đà Nẵng</p>
+            <p class="mb-2"><i class="fa fa-envelope text-primary mr-3"></i>petshop.hpp@gmail.com</p>
+            <p class="mb-0"><i class="fa fa-phone-alt text-primary mr-3"></i>0788339999</p>
+        </div>
+        <div class="col-lg-8 col-md-12">
+            <div class="row">
+                <div class="col-md-4 mb-5" style=" padding-left:100px;">
+                    <h5 class="font-weight-bold text-dark mb-4">Danh mục mua sắm</h5>
+                    <div class="d-flex flex-column justify-content-start">
+                        <a class="text-dark mb-2" th:href="@{/san-pham}"><i class="fa fa-angle-right mr-2"></i>Shop cho
+                            Chó</a>
+                        <a class="text-dark mb-2" th:href="@{/san-pham}"><i class="fa fa-angle-right mr-2"></i>Shop cho
+                            Mèo</a>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-5" style=" padding-left:100px;">
+                    <h5 class="font-weight-bold text-dark mb-4">Thông tin PetShop</h5>
+                    <div class="d-flex flex-column justify-content-start">
+                        <a class="text-dark mb-2" href='<c:url value="/gioi-thieu"/>'><i
+                                class="fa fa-angle-right mr-2"></i>Về chúng tôi</a>
+                        <a class="text-dark mb-2" href="https://zalo.me/84377382067"><i
+                                class="fa fa-angle-right mr-2"></i>Liên hệ</a>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-5" style=" padding-left:100px;">
+                    <h5 class="font-weight-bold text-dark mb-4">Newsletter</h5>
+                    <form action="">
+                        <div class="form-group">
+                            <input type="text" class="form-control border-0 py-4" placeholder="Your Name"
+                                   required="required"/>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" class="form-control border-0 py-4" placeholder="Your Email"
+                                   required="required"/>
+                        </div>
+                        <div>
+                            <button class="btn btn-primary btn-block border-0 py-3" type="submit">Subscribe Now</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Footer End -->
+<!-- Footer End -->
+<!-- Back to Top -->
+<div th:fragment="backtotop">
+    <a href="#" class="btn btn-primary back-to-top"><i class="fa fa-angle-double-up"></i></a>
+</div>
+
+
+<!-- JavaScript Libraries -->
+<div th:fragment="script">
+    <script th:src="@{https://code.jquery.com/jquery-3.4.1.min.js}"></script>
+    <script th:src="@{https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js}"></script>
+    <script th:src="@{/lib/easing/easing.min.js}"></script>
+    <script th:src="@{/lib/owlcarousel/owl.carousel.min.js}"></script>
+</div>
+<!-- Contact Javascript File -->
+<div th:fragment="contact-script">
+    <script th:src="@{/mail/jqBootstrapValidation.min.js}"></script>
+    <script th:src="@{/mail/contact.js}"></script>
+</div>
+<!-- Template Javascript -->
+<div th:fragment="template-script">
+    <script th:src="@{/js/main.js}"></script>
+</div>
+</body>
+</html>

@@ -1,0 +1,161 @@
+
+
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org/">
+<head th:replace="~{fragments :: header}">
+</head>
+<style>
+    @media (min-width: 992px)
+    .col-lg-4 {
+        flex: 0 0 33.33333%;
+        max-width: 30;
+    }
+</style>
+<body>
+<!-- Topbar Start -->
+<div th:replace="~{fragments :: topbar}">
+</div>
+<!-- Topbar End -->
+
+
+<!-- Navbar Start -->
+<div th:replace="~{fragments :: navbar-detail}">
+</div>
+<!-- Navbar End -->
+
+
+<!-- Page Header Start -->
+<div th:replace="~{fragments :: page-header-start-dog}">
+</div>
+<!-- Page Header End -->
+
+<!-- Checkout Start -->
+<div class="container-fluid pt-5">
+    <div class="row px-xl-5">
+
+        <div class="col-lg-8 table-responsive mb-5">
+            <table class="table table-bordered text-center mb-0">
+                <thead class="bg-secondary text-dark">
+                <tr>
+                    <th>Sản Phẩm</th>
+                    <th>Giá tiền</th>
+                    <th>Số lượng </th>
+                    <th>Tổng tiền</th>
+
+                </tr>
+                </thead>
+                <tbody class="align-middle" th:each="cartItem: ${shoppingCart.cartItemSet}">
+<!--                <c:forEach var="item" items="${cart}">-->
+                    <tr>
+                        <td class="align-content-start"><img th:src="'data:image/jpeg;base64,' + ${cartItem.product.image}" th:text="${cartItem.product.name}" alt="" style="width: 50px;"></td>
+                        <td class="align-middle" th:text="${cartItem.product.salePrice}">${item.value.product.price}đ</td>
+                        <td class="align-middle" th:text="${cartItem.quantity}">${item.value.quantity}</td>
+                        <td class="align-middle" th:text="${cartItem.totalPrice}">${item.value.totalPrice}đ</td>
+
+
+                    </tr>
+                </tbody>
+            </table>
+            <form style="margin-top: 50px;" th:action="@{/save-order}" method="post" th:object="${personalInfo}">
+                <div class="mb-4">
+                    <h4 class="font-weight-semi-bold mb-4">Thông tin đặt hàng</h4>
+                    <div class="row">
+                        <div class="col-md-6 form-group">
+                            <label for="firstName">Họ</label>
+                            <input id="firstName" class="form-control" type="text"  th:field="*{firstName}" required="required"></input>
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <label for="lastName">Tên</label>
+                            <input id="lastName" class="form-control" type="text"  th:field="*{lastName}" required="required"></input>
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <label for="username">Địa chỉ E-mail*</label>
+                            <input id="username" class="form-control" type="email"  th:field="*{username}" required="required"></input>
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <label for="phoneNumber">Số điện thoại*</label>
+                            <input id="phoneNumber" class="form-control" type="text"  th:field="*{phoneNumber}" required="required"></input>
+                        </div>
+                        <div class="col-md-12 form-group">
+                            <label for="address">Địa chỉ(số nhà,đường,tỉnh)*</label>
+                            <input id="address" class="form-control" type="text" th:field="*{address}" required="required"></input>
+                        </div>
+
+                    </div>
+                </div>
+                <input class="btn btn-primary form-control" type="submit"
+                                                                     value="Hoàn tất đặt hàng" name="submit" id="submit" />
+            </form>
+
+        </div>
+        <div class="col-lg-4">
+            <div class="card border-secondary mb-5">
+                <div class="card-header bg-secondary border-0">
+                    <h4 class="font-weight-semi-bold m-0">Thông tin mua hàng</h4>
+                </div>
+                <div class="card-body">
+
+                    <hr class="mt-0">
+                    <div class="d-flex justify-content-between mb-3 pt-1">
+                        <h6 class="font-weight-medium">Tổng sản phẩm</h6>
+                        <h6 class="font-weight-medium" th:text="${shoppingCart.totalPrice}+'đ'">${totalPrice}đ</h6>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <h6 class="font-weight-medium">Phí vận chuyển</h6>
+                        <h6 class="font-weight-medium" th:text="'20000đ'">${order.shippingFee}đ</h6>
+                    </div>
+                </div>
+                <div class="card-footer border-secondary bg-transparent">
+                    <div class="d-flex justify-content-between mt-2">
+                        <h5 class="font-weight-bold">Thành tiền tiền</h5>
+                        <h5 class="font-weight-bold" th:text="${shoppingCart.totalPrice + 20000}+'đ'">${totalPrice+order.shippingFee}đ</h5>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card border-secondary mb-5">
+                <div class="card-header bg-secondary border-0">
+                    <h4 class="font-weight-semi-bold m-0">Hình thức thanh toán</h4>
+                </div>
+                <div class="form-group">
+                    <label class="custom-label" for="paypal">COD thanh toán khi nhận hàng</label>
+                </div>
+                <div class="card-footer border-secondary bg-transparent">
+
+                </div>
+            </div>
+
+        </div>
+        <div class="col-lg-8">
+<!--            <form th:action="@{thanh-toan}" method="post" th:object="${order}">-->
+<!--                <div class="mb-4">-->
+<!--                    <h4 class="font-weight-semi-bold mb-4">Thông tin đặt hàng</h4>-->
+<!--                    <div class="row">-->
+<!--                        <div class="col-md-6 form-group">-->
+<!--                            <label>Tên người nhận*</label>-->
+<!--                            <input id="recipientName" class="form-control" type="text"  path="recipientName" required="required"></input>-->
+<!--                        </div>-->
+<!--                        <div class="col-md-6 form-group">-->
+<!--                            <label>Địa chỉ E-mail*</label>-->
+<!--                            <input id="email" class="form-control" type="text"  path="email" required="required"></input>-->
+<!--                        </div>-->
+<!--                        <div class="col-md-6 form-group">-->
+<!--                            <label>Số điện thoại*</label>-->
+<!--                            <input id="phoneNumber" class="form-control" type="text"  path="phoneNumber" required="required"></input>-->
+<!--                        </div>-->
+<!--                        <div class="col-md-6 form-group">-->
+<!--                            <label>Địa chỉ(số nhà,đường,tỉnh)*</label>-->
+<!--                            <input id="address" class="form-control" type="text" path="address" required="required"></input>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <a href='<c:url value="/thong-bao"></c:url>'> <input class="btn btn-primary form-control" type="submit"-->
+<!--                                                                     value="Hoàn tất đặt hàng" name="submit" id="submit" /> </a>-->
+<!--            </form>-->
+        </div>
+    </div>
+</div>
+<div th:replace="~{fragments :: footer}"></div>
+<!-- Checkout End -->
+</body>
+</html>

@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org/">
+
+<head th:replace="~{fragments :: header}">
+
+</head>
+
+<body>
+<!-- Topbar Start -->
+<div th:replace="~{fragments :: topbar}">
+</div>
+<!-- Topbar End -->
+
+
+<!-- Navbar Start -->
+<div th:replace="~{fragments :: navbar-detail}">
+</div>
+<!-- Navbar End -->
+
+
+<!-- Page Header Start -->
+<div th:replace="~{fragments :: page-header-start-dog}">
+</div>
+<!-- Page Header End -->
+
+
+<!-- Cart Start -->
+<div class="container-fluid pt-5">
+    <div class="row px-xl-5">
+        <div class="col-lg-8 table-responsive mb-5">
+            <div th:if="${check} " class=" text-center alert-danger">
+                <p th:text="${check}"></p>
+            </div>
+            <table class="table table-bordered text-center mb-0" th:if="${check == null}">
+                <thead class="bg-secondary text-dark">
+                <tr>
+                    <th>Products</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th>Total</th>
+                    <th>Action</th>
+                </tr>
+                </thead>
+
+
+                <tbody class="align-middle" th:each="cartItem: ${shoppingCart.cartItemSet}">
+                <tr>
+
+                    <td class="align-middle"><img th:src="'data:image/jpeg;base64,' + ${cartItem.product.image}" th:text="${cartItem.product.name}" alt="" style="width: 50px;"></td>
+                    <td class="align-middle" th:text="${cartItem.product.salePrice}">$150</td>
+                    <form th:action="@{/update-cart}" method="post">
+                        <input type="hidden" name="id" th:value="${cartItem.product.id}">
+                        <td >
+                                                        <label for="quantity" ></label>
+                                                        <input style="width: 50px" id="quantity" type="number" size="2" th:value="${cartItem.quantity}" name="quantity" min ="1" step="1" >
+                        </td>
+                        <td class="align-middle" th:text="${cartItem.totalPrice}">
+                        </td>
+                        <!--                            <td> <button class="btn btn-sm btn-primary"><i class="fa fa-times"></i>-->
+                        <!--                            </button></td>-->
+                        <!--                        <td class="align-content-middle">-->
+                        <!--                            <div class="input-group quantity mx-auto" style="width: 100px; margin-left: 50px;">-->
+                        <!--                                <div class="input-group-btn">-->
+                        <!--                                    <button class="btn btn-sm btn-primary btn-minus">-->
+                        <!--                                        <i class="fa fa-minus"></i>-->
+                        <!--                                    </button>-->
+                        <!--                                </div>-->
+                        <!--                                <input type="text" class="form-control form-control-sm bg-secondary text-center"-->
+                        <!--                                       th:value="1">-->
+                        <!--                                <div class="input-group-btn">-->
+                        <!--                                    <button class="btn btn-sm btn-primary btn-plus">-->
+                        <!--                                        <i class="fa fa-plus"></i>-->
+                        <!--                                    </button>-->
+                        <!--                                </div>-->
+                        <!--                            </div>-->
+                        <!--                        </td>-->
+                        <!--                    <td  class="align-middle"> <a onclick="deleteCart('${item.key}')"><button class="btn btn-sm btn-primary"> <i class="fa fa-times"></i>-->
+                        <!--                    </button></a></td>-->
+                        <td class="d-inline-flex">
+                            <button  class="btn btn-primary" type="submit" name="action" value="update" title="Update">
+                                Update
+                            </button>
+                            <button class="btn btn-primary" type="submit" name="action" value="delete" title="Delete">
+                                Delete
+                            </button>
+                        </td>
+                    </form>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-lg-4">
+            <form class="mb-5" th:action="@{/add-to-cart/{product_id}}" method="post">
+                <div class="input-group">
+                    <input type="text" class="form-control p-4" placeholder="Coupon Code" name="coupon">
+                    <div class="input-group-append">
+                        <button class="btn btn-primary">Apply Coupon</button>
+                    </div>
+                </div>
+            </form>
+            <div class="card border-secondary mb-5">
+                <div class="card-header bg-secondary border-0">
+                    <h4 class="font-weight-semi-bold m-0">Cart Summary</h4>
+                </div>
+                <div class="card-body">
+
+                    <div class="d-flex justify-content-between">
+                        <h6 class="font-weight-medium">Shipping</h6>
+                        <h6 class="font-weight-medium">20000</h6>
+                    </div>
+                </div>
+                <div class="card-footer border-secondary bg-transparent">
+                    <div class="d-flex justify-content-between mt-2">
+                        <h5 class="font-weight-bold">Total</h5>
+                        <h5 class="font-weight-bold" th:text="${shoppingCart.totalPrice + 20000}"></h5>
+                    </div>
+                    <a th:href="@{/check-out}" class="btn btn-block btn-primary my-3 py-3">Proceed To Checkout</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Cart End -->
+
+
+<!-- Footer Start -->
+<div th:replace="~{fragments :: footer}">
+</div>
+<!-- Footer End -->
+
+
+<!-- Back to Top -->
+<a href="#" class="btn btn-primary back-to-top"><i class="fa fa-angle-double-up"></i></a>
+
+
+<!-- JavaScript Libraries -->
+<div th:replace="~{fragments :: script}"></div>
+
+
+<!-- Contact Javascript File -->
+<div th:replace="~{fragments :: contact-script}"></div>
+
+
+<!-- Template Javascript -->
+<div th:replace="~{fragments :: template-script}"></div>
+<content tag="script">
+    <script>
+        function deleteCart(product_id) {
+            if (confirm("Bạn muốn xóa sản phẩm này trong giỏ hàng!")) {
+                $.ajax({
+                    url: "xoa-san-pham/" + product_id,
+                    type: "get",
+                    success: function () {
+                        $("#editcart").load(location.href + " #editcart>*", "");
+                    }
+                });
+            } else {
+
+            }
+        }
+
+        function editquantity(product_id) {
+            var quantity = $("#quantity-cart-" + product_id).val();
+            if (quantity < 1) quantity = 1;
+            $.ajax({
+
+                url: "thay-doi-so-luong/" + product_id + "/" + quantity,
+                type: "get",
+                success: function () {
+                    $("#editcart").load(location.href + " #editcart>*", "");
+                }
+            });
+        }
+
+    </script>
+</content>
+</body>
+
+
+</html>
